@@ -114,7 +114,7 @@ static int ArgMax(float[] logits)
 
 ## 性能
 
-测试环境：Ryzen 7 5800X（Zen 3）、Windows、Release、8 线程，`avx2=True`、`vnni=False`。不计模型加载与 warmup；prefill 为 512 token 三次平均，decode 为 512 token 上下文后连续生成 128 token。
+测试环境：Ryzen 7 5800X（Zen 3）、Windows、Release、8 线程，`avx2=True`、`vnni=False`。不计模型加载与 warmup；prefill 为 512 token 三次平均，decode 为 512 token 上下文后连续生成 128 token。与 TensorSharp、llama.cpp 的同日现场对照（含 Q1.25 / Q2 / Q4 与版本号）见 [docs/engine-benchmark.md](docs/engine-benchmark.md)。
 
 | 模型 | prefill 512 | decode 128 | prefill 三次 |
 | --- | ---: | ---: | --- |

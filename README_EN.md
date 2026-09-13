@@ -114,7 +114,7 @@ static int ArgMax(float[] logits)
 
 ## Performance
 
-Environment: Ryzen 7 5800X (Zen 3), Windows, Release, 8 threads, `avx2=True`, `vnni=False`. Model load and warmup are excluded. Prefill is the mean of three 512-token runs. Decode is 128 tokens after a 512-token context.
+Environment: Ryzen 7 5800X (Zen 3), Windows, Release, 8 threads, `avx2=True`, `vnni=False`. Model load and warmup are excluded. Prefill is the mean of three 512-token runs. Decode is 128 tokens after a 512-token context. Same-day TensorSharp / llama.cpp numbers (Q1.25 / Q2 / Q4, version pins): [docs/engine-benchmark.md](docs/engine-benchmark.md) (Chinese).
 
 | Model | prefill 512 | decode 128 | prefill reps |
 | --- | ---: | ---: | --- |
