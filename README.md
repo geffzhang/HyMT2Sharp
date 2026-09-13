@@ -35,7 +35,7 @@ dotnet run --project src/HyMT2Sharp.Server -c Release -- --model "D:\_\model\Hy-
 浏览器访问 `http://127.0.0.1:8080`，或用 curl：
 
 ```powershell
-curl http://127.0.0.1:8080/v1/chat/completions -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Translate into Chinese, without additional explanation：Hello\"}],\"max_tokens\":16}"
+curl http://127.0.0.1:8080/v1/chat/completions -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Translate the following segment into English, without additional explanation：今天正式发布 SimdPaddleOCR（NuGet: Sdcb.SimdPaddleOCR）。这是一个完全用 C# 编写的完整 OCR 推理引擎。它不依赖 Paddle Inference，不依赖 ONNX Runtime，也不需要附带 OpenCV 的原生动态链接库。\"}],\"max_tokens\":128}"
 ```
 
 ## 作为库使用
@@ -51,9 +51,9 @@ dotnet add package Sdcb.HyMT2Sharp.Model
 ```csharp
 using Sdcb.HyMT2Sharp.Model;
 
-using HunyuanDenseModel model = new(@"D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf");
+using HunyuanDenseModel model = new(@"D:\_\model\Hy-MT2-1.8B-1.25Bit.gguf");
 
-await foreach (string piece in Generate(model, "Translate into Chinese, without additional explanation：Hello"))
+await foreach (string piece in Generate(model, "Translate the following segment into English, without additional explanation：今天正式发布 SimdPaddleOCR（NuGet: Sdcb.SimdPaddleOCR）。这是一个完全用 C# 编写的完整 OCR 推理引擎。它不依赖 Paddle Inference，不依赖 ONNX Runtime，也不需要附带 OpenCV 的原生动态链接库。"))
     Console.Write(piece);
 
 // 完整字符串：string text = string.Concat(await Generate(...).ToArrayAsync());
@@ -61,7 +61,7 @@ await foreach (string piece in Generate(model, "Translate into Chinese, without 
 static async IAsyncEnumerable<string> Generate(
     HunyuanDenseModel model,
     string user,
-    int maxTokens = 64,
+    int maxTokens = 128,
     [EnumeratorCancellation] CancellationToken cancellationToken = default)
 {
     int[] prompt = model.Tokenizer.Encode(ChatTemplate.RenderHunyuanDense([new ChatMessage("user", user)]));
@@ -145,11 +145,9 @@ Q2 panel 默认 64 KiB tile，可用 `--q2-col-tile-kb 64` 显式指定。`--pro
 
 ```powershell
 dotnet test tests/HyMT2Sharp.Tests -c Release
-dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-2Bit.gguf" --prompt "Translate the following segment into Chinese, without additional explanation：Hello" --max-tokens 16
-dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf" --prompt "Translate the following segment into Chinese, without additional explanation：Hello" --max-tokens 16
+dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-2Bit.gguf" --prompt "Translate the following segment into English, without additional explanation：今天正式发布 SimdPaddleOCR（NuGet: Sdcb.SimdPaddleOCR）。这是一个完全用 C# 编写的完整 OCR 推理引擎。它不依赖 Paddle Inference，不依赖 ONNX Runtime，也不需要附带 OpenCV 的原生动态链接库。" --max-tokens 128
+dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf" --prompt "Translate the following segment into English, without additional explanation：今天正式发布 SimdPaddleOCR（NuGet: Sdcb.SimdPaddleOCR）。这是一个完全用 C# 编写的完整 OCR 推理引擎。它不依赖 Paddle Inference，不依赖 ONNX Runtime，也不需要附带 OpenCV 的原生动态链接库。" --max-tokens 128
 ```
-
-当前 22/22 测试通过；Q2 与 Q4 在上述翻译 prompt 下均输出「你好」。
 
 ## 许可证
 
