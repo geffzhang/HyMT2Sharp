@@ -255,9 +255,17 @@
       width: 100%;
       min-height: unset;
       border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
       padding: 8px 10px;
+      font: inherit;
       font-size: 13px;
+      outline: none;
     }
+
+    .settings input:focus, .settings textarea:focus { border-color: var(--accent-dim); }
+    .settings input[type="number"] { color-scheme: dark; }
 
     .settings textarea { min-height: 64px; }
 
