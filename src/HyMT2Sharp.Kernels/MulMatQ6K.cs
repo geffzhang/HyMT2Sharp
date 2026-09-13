@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Q6_K × F32 matmul. Decode is AVX2 GEMV. Prefill uses q6_Kx8 × q8_Kx4 panel GEMM.

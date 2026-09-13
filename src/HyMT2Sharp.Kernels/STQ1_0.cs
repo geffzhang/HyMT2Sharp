@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Sherry/STQ1_0 sparse ternary dot products (canonical GGUF type 43;

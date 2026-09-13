@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>HyMT2Sharp.Kernels</RootNamespace>
-    <AssemblyName>HyMT2Sharp.Kernels</AssemblyName>
     <Description>AVX2/AVX-VNNI Q4_K panel GEMM and GEMV kernels.</Description>
   </PropertyGroup>
 </Project>

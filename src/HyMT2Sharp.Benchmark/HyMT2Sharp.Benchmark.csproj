@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>HyMT2Sharp.Benchmark</RootNamespace>
-    <AssemblyName>HyMT2Sharp.Benchmark</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\HyMT2Sharp.Model\HyMT2Sharp.Model.csproj" />

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 public sealed unsafe class NativeBuffer : IDisposable
 {

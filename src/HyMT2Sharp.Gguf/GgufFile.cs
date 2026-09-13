@@ -2,7 +2,7 @@ using System.IO.MemoryMappedFiles;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace HyMT2Sharp.Gguf;
+namespace Sdcb.HyMT2Sharp.Gguf;
 
 /// <summary>
 /// Memory-maps a GGUF v2/v3 file. Metadata is parsed immediately; tensor

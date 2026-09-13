@@ -1,9 +1,9 @@
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
-using HyMT2Sharp.Kernels;
-using HyMT2Sharp.Model;
+using Sdcb.HyMT2Sharp.Kernels;
+using Sdcb.HyMT2Sharp.Model;
 
-namespace HyMT2Sharp.Tests;
+namespace Sdcb.HyMT2Sharp.Tests;
 
 public sealed class FastExpTests
 {

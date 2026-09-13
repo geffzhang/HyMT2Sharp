@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Model;
+namespace Sdcb.HyMT2Sharp.Model;
 
 public readonly record struct PromptAlignment(int Cached, int[] Suffix);
 

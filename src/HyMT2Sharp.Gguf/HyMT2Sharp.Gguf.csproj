@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>HyMT2Sharp.Gguf</RootNamespace>
-    <AssemblyName>HyMT2Sharp.Gguf</AssemblyName>
     <Description>GGUF v2/v3 reader aligned to ggml tensor offsets.</Description>
   </PropertyGroup>
 </Project>

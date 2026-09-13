@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>512 weights per half scale, four consecutive 2-bit codes per byte.</summary>
 public static unsafe class Q2_0C

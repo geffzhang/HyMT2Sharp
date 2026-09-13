@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HyMT2Sharp.Server;
+namespace Sdcb.HyMT2Sharp.Server;
 
 public sealed class ChatCompletionRequest
 {

@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Q4_K × F32 matmul. Decode (1 token) is AVX2 GEMV. Prefill is Q8_K 4×8

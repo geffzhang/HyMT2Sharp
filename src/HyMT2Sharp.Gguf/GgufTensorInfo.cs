@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Gguf;
+namespace Sdcb.HyMT2Sharp.Gguf;
 
 public readonly struct GgufTensorInfo
 {

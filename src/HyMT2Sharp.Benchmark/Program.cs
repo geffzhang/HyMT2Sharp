@@ -1,7 +1,7 @@
 using System.Diagnostics;
-using HyMT2Sharp.Gguf;
-using HyMT2Sharp.Kernels;
-using HyMT2Sharp.Model;
+using Sdcb.HyMT2Sharp.Gguf;
+using Sdcb.HyMT2Sharp.Kernels;
+using Sdcb.HyMT2Sharp.Model;
 
 string modelPath = Args.Get(args, "--model")
     ?? @"D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf";

@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 public readonly unsafe struct Q2PanelWeight(BlockQ2x8* packed, float* dst, int nOut)
 {

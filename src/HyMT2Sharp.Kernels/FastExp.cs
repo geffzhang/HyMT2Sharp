@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// llama.cpp <c>ggml_v_expf</c> / <c>ggml_v_silu</c> (AVX2+FMA, vec.h).

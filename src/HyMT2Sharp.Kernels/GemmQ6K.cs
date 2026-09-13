@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// 4×8 Q6_K panel GEMM on <see cref="BlockQ6Kx8"/> (u8 values, blocklen 4) × <see cref="BlockQ8Kx4"/>.

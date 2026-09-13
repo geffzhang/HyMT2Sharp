@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 public static unsafe class Q4K
 {

@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 public static unsafe class RepackQ4K
 {

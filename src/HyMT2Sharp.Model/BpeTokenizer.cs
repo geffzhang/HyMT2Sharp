@@ -1,8 +1,8 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using HyMT2Sharp.Gguf;
+using Sdcb.HyMT2Sharp.Gguf;
 
-namespace HyMT2Sharp.Model;
+namespace Sdcb.HyMT2Sharp.Model;
 
 public sealed class BpeTokenizer
 {

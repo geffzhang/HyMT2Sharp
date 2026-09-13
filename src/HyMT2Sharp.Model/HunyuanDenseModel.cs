@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using HyMT2Sharp.Gguf;
-using HyMT2Sharp.Kernels;
+using Sdcb.HyMT2Sharp.Gguf;
+using Sdcb.HyMT2Sharp.Kernels;
 
-namespace HyMT2Sharp.Model;
+namespace Sdcb.HyMT2Sharp.Model;
 
 public sealed unsafe partial class HunyuanDenseModel : IDisposable
 {

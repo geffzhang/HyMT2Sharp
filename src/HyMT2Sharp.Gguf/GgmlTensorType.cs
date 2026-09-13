@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Gguf;
+namespace Sdcb.HyMT2Sharp.Gguf;
 
 /// <summary>
 /// On-disk <c>ggml_type</c> codes from llama.cpp <c>ggml.h</c>.

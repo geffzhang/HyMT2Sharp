@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Runtime.Intrinsics.X86;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using HyMT2Sharp.Server;
+using Sdcb.HyMT2Sharp.Server;
 
 string modelPath = GetArg(args, "--model", "-m")
     ?? Environment.GetEnvironmentVariable("HYMT2_MODEL")

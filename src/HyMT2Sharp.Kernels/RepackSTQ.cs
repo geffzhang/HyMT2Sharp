@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Repack legacy STQ rows into an eight-column panel.  The source stores a

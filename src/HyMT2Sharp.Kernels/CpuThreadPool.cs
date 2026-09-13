@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Dedicated workers pinned to physical P-cores when the OS exposes topology.

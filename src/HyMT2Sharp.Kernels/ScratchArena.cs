@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Reusable 64-byte-aligned scratch. Callers overwrite the bytes they need;

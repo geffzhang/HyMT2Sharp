@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace HyMT2Sharp.Model;
+namespace Sdcb.HyMT2Sharp.Model;
 
 public readonly record struct ChatMessage(string Role, string Content);
 

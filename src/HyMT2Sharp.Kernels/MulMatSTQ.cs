@@ -1,6 +1,6 @@
 using System.Runtime.Intrinsics.X86;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 public readonly unsafe struct STQPanelWeight(BlockSTQ1_0x8* packed, float* dst, int nOut)
 {

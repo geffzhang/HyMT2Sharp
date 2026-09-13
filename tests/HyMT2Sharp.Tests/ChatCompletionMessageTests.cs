@@ -1,7 +1,7 @@
 using System.Text.Json;
-using HyMT2Sharp.Server;
+using Sdcb.HyMT2Sharp.Server;
 
-namespace HyMT2Sharp.Tests;
+namespace Sdcb.HyMT2Sharp.Tests;
 
 public sealed class ChatCompletionMessageTests
 {

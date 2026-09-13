@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using HyMT2Sharp.Model;
+using Sdcb.HyMT2Sharp.Model;
 
-namespace HyMT2Sharp.Server;
+namespace Sdcb.HyMT2Sharp.Server;
 
 public sealed class ChatCompletionService : IDisposable
 {

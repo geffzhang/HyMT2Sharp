@@ -1,7 +1,7 @@
 using System.Text;
-using HyMT2Sharp.Gguf;
+using Sdcb.HyMT2Sharp.Gguf;
 
-namespace HyMT2Sharp.Tests;
+namespace Sdcb.HyMT2Sharp.Tests;
 
 public sealed class GgufTypeTests
 {

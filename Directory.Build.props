@@ -18,6 +18,9 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <Deterministic>true</Deterministic>
     <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+    <RootNamespace>Sdcb.$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>Sdcb.$(MSBuildProjectName)</AssemblyName>
+    <PackageId>Sdcb.$(MSBuildProjectName)</PackageId>
     <Authors>sdcb</Authors>
     <Company>Sdcb</Company>
     <PackageProjectUrl>https://github.com/sdcb/HyMT2Sharp</PackageProjectUrl>

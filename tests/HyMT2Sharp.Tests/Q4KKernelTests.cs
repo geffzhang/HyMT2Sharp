@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
-using HyMT2Sharp.Kernels;
+using Sdcb.HyMT2Sharp.Kernels;
 
-namespace HyMT2Sharp.Tests;
+namespace Sdcb.HyMT2Sharp.Tests;
 
 public sealed class Q4KKernelTests
 {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>
 /// Discovers performance cores from the OS topology instead of guessing from

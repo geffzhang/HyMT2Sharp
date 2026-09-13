@@ -1,4 +1,4 @@
-namespace HyMT2Sharp.Kernels;
+namespace Sdcb.HyMT2Sharp.Kernels;
 
 /// <summary>One packed prefill weight (Q4 or Q6 panel) plus its output slab.</summary>
 public unsafe struct PanelWeight

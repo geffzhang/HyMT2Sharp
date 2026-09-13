@@ -1,9 +1,9 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
-using HyMT2Sharp.Kernels;
+using Sdcb.HyMT2Sharp.Kernels;
 
-namespace HyMT2Sharp.Model;
+namespace Sdcb.HyMT2Sharp.Model;
 
 public static unsafe class Ops
 {

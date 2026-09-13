@@ -1,6 +1,6 @@
-using HyMT2Sharp.Model;
+using Sdcb.HyMT2Sharp.Model;
 
-namespace HyMT2Sharp.Tests;
+namespace Sdcb.HyMT2Sharp.Tests;
 
 public sealed class AttentionTests
 {

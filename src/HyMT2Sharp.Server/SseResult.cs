@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace HyMT2Sharp.Server;
+namespace Sdcb.HyMT2Sharp.Server;
 
 public sealed class SseResult(IAsyncEnumerable<ChatCompletionChunk> chunks, JsonSerializerOptions json) : IResult
 {
