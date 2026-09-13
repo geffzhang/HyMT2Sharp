@@ -15,6 +15,10 @@ artifacts/
 project.lock.json
 project.fragment.lock.json
 
+# LINQPad NuGet pack output
+build/nupkgs/
+build/nuget.exe
+
 # Test / coverage
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

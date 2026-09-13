@@ -2,6 +2,7 @@
   <PropertyGroup>
     <RootNamespace>HyMT2Sharp.Model</RootNamespace>
     <AssemblyName>HyMT2Sharp.Model</AssemblyName>
+    <Description>Hy-MT2 hunyuan-dense CPU inference: load GGUF, tokenize, KV cache and Forward.</Description>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\HyMT2Sharp.Kernels\HyMT2Sharp.Kernels.csproj" />

@@ -1,0 +1,28 @@
+<Project>
+  <!--
+    `dotnet pack -p:Version=` is a global property. It would otherwise:
+    1) flow into referenced project compiles, and
+    2) be returned by NuGet's _GetProjectVersion as the package dependency version
+       (that MSBuild call does not honor ProjectReference.GlobalPropertiesToRemove).
+    Result: packing HyMT2Sharp.Model 1.0.1 would depend on Gguf/Kernels 1.0.1.
+  -->
+  <ItemGroup>
+    <ProjectReference Update="@(ProjectReference)">
+      <GlobalPropertiesToRemove>%(ProjectReference.GlobalPropertiesToRemove);Version;PackageVersion</GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="FixPackProjectReferenceVersions" AfterTargets="_GetProjectReferenceVersions">
+    <ItemGroup>
+      <_ProjectReferencesWithVersions Condition="'%(Filename)' == 'HyMT2Sharp.Gguf'">
+        <ProjectVersion>$(HyMT2SharpGgufVersion)</ProjectVersion>
+      </_ProjectReferencesWithVersions>
+      <_ProjectReferencesWithVersions Condition="'%(Filename)' == 'HyMT2Sharp.Kernels'">
+        <ProjectVersion>$(HyMT2SharpKernelsVersion)</ProjectVersion>
+      </_ProjectReferencesWithVersions>
+      <_ProjectReferencesWithVersions Condition="'%(Filename)' == 'HyMT2Sharp.Model'">
+        <ProjectVersion>$(HyMT2SharpModelVersion)</ProjectVersion>
+      </_ProjectReferencesWithVersions>
+    </ItemGroup>
+  </Target>
+</Project>

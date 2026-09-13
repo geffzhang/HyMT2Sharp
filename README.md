@@ -1,6 +1,6 @@
 # HyMT2Sharp
 
-纯 C# 的腾讯 Hy-MT2（`hunyuan-dense`）CPU 推理实现，带 AVX2 内核，目前测过 Q4_K_M、Q2_0C 和 1.25-bit STQ1_0 这三种 GGUF。其它模型没有测过。
+纯 C# 的腾讯 Hy-MT2（`hunyuan-dense`）非官方 CPU 推理实现，带 AVX2 内核，目前测过 Q4_K_M、Q2_0C 和 1.25-bit STQ1_0 这三种 GGUF。其它模型没有测过。
 
 GGUF 下载：
 
