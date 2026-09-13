@@ -67,3 +67,7 @@ dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2
 ```
 
 当前测试为 22/22，Q2 和 Q4 的已知翻译 prompt 均输出「你好」。
+
+## License
+
+本项目采用 [Apache License 2.0](LICENSE)。
