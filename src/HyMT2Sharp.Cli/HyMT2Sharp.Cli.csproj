@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>HyMT2Sharp.Cli</RootNamespace>
+    <AssemblyName>HyMT2Sharp.Cli</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HyMT2Sharp.Model\HyMT2Sharp.Model.csproj" />
+    <ProjectReference Include="..\HyMT2Sharp.Gguf\HyMT2Sharp.Gguf.csproj" />
+  </ItemGroup>
+</Project>

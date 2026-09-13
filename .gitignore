@@ -1,0 +1,67 @@
+# Build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+artifacts/
+[Ll]og/
+[Ll]ogs/
+*.binlog
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# Test / coverage
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+TestResult.xml
+coverage/
+coverage*.xml
+coverage*.json
+*.coverage
+*.coveragexml
+*.opencover.xml
+
+# Visual Studio / Rider / VS Code local state
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.csproj.user
+launchSettings.json
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local secrets / env
+.env
+.env.*
+*.pfx
+
+# Weights live outside the repo; never commit checkpoints.
+*.safetensors
+*.ggml
+models/
+
+# JIT dumps from --dump-q4-gemm / --dump-silu / DOTNET_JitDisasm
+jit-*.txt
+*.jit
+*.jit.txt
+*.asm
+
+# Local bench / scratch notes (keep docs/*.md)
+bench-*.txt
+bench-*.log
+prompt.txt
+*.orig
+*~
+~$*

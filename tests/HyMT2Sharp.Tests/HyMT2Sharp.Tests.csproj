@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>HyMT2Sharp.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HyMT2Sharp.Kernels\HyMT2Sharp.Kernels.csproj" />
+    <ProjectReference Include="..\..\src\HyMT2Sharp.Model\HyMT2Sharp.Model.csproj" />
+    <ProjectReference Include="..\..\src\HyMT2Sharp.Server\HyMT2Sharp.Server.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>HyMT2Sharp.Model</RootNamespace>
+    <AssemblyName>HyMT2Sharp.Model</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HyMT2Sharp.Kernels\HyMT2Sharp.Kernels.csproj" />
+    <ProjectReference Include="..\HyMT2Sharp.Gguf\HyMT2Sharp.Gguf.csproj" />
+  </ItemGroup>
+</Project>
