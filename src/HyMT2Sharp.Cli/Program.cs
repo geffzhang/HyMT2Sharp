@@ -15,7 +15,7 @@ Console.WriteLine($"HyMT2Sharp  model={modelPath}");
 Console.WriteLine($"threads={(threads <= 0 ? "auto" : threads.ToString())}  avx2={System.Runtime.Intrinsics.X86.Avx2.IsSupported}  vnni={System.Runtime.Intrinsics.X86.AvxVnni.IsSupported}");
 
 using HunyuanDenseModel model = new(modelPath, threads);
-Console.WriteLine($"threads={model.ThreadCount}{(threads <= 0 ? " (physical P-cores)" : "")}  arch={model.Config.Architecture} layers={model.Config.NumLayers} hidden={model.Config.HiddenSize} heads={model.Config.NumHeads}/{model.Config.NumKvHeads} vocab={model.Config.VocabSize}");
+Console.WriteLine($"threads={model.ThreadCount}{(threads <= 0 ? $" ({model.ThreadAutoHint})" : "")}  arch={model.Config.Architecture} layers={model.Config.NumLayers} hidden={model.Config.HiddenSize} heads={model.Config.NumHeads}/{model.Config.NumKvHeads} vocab={model.Config.VocabSize}");
 
 List<ChatMessage> messages = [];
 if (!string.IsNullOrEmpty(system))

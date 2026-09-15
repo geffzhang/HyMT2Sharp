@@ -140,7 +140,9 @@ public sealed class CpuThreadPool : IDisposable
         {
             IReadOnlyList<int> targets = ThreadCount <= CpuTopology.PCoreLeaders.Count
                 ? CpuTopology.PCoreLeaders
-                : CpuTopology.PCoreLogicalIds;
+                : ThreadCount <= CpuTopology.PhysicalLeaders.Count
+                    ? CpuTopology.PhysicalLeaders
+                    : CpuTopology.PhysicalLogicalIds;
             if (targets.Count == 0)
                 return;
 
