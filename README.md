@@ -40,6 +40,43 @@ dotnet run --project src/HyMT2Sharp.Server -c Release -- --model "D:\_\model\Hy-
 curl http://127.0.0.1:8080/v1/chat/completions -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Translate the following segment into Chinese, without additional explanation：SimdPaddleOCR is officially released today (NuGet: Sdcb.SimdPaddleOCR). It is a complete OCR inference engine written entirely in C#. It does not depend on Paddle Inference or ONNX Runtime, and it does not require shipping OpenCV native libraries.\"}],\"max_tokens\":128}"
 ```
 
+### MCP Server
+
+`HyMT2Sharp.McpServer` 把本地翻译能力暴露为标准 MCP（Model Context Protocol）工具，任何 MCP 宿主（Claude Desktop、VS Code Copilot、WorkBuddy 等）均可直接调用——完全离线，无需 API key。基于官方 [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)（stdio 传输）：
+
+```powershell
+dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf"
+```
+
+| 参数 | 默认 | 说明 |
+| --- | --- | --- |
+| `--model` / `-m` | `HYMT2_MODEL` 环境变量 | GGUF 路径 |
+| `--threads` / `-t` | 0（自动绑物理 P-core） | 推理线程数 |
+| `--max-tokens` | 512 | 单次翻译生成上限 |
+
+提供 `translate` 工具：参数为 `text`、`targetLanguage`（38 种语言枚举，如 `zh` / `en` / `ja`），返回译文文本及 `structuredContent`（token 用量与耗时统计）。模型在首次调用时才加载（秒级），之后常驻内存；并发调用在单实例上串行排队。
+
+在 MCP 宿主中注册（以 `mcp.json` 为例）：
+
+```json
+{
+  "mcpServers": {
+    "hymt2": {
+      "command": "dotnet",
+      "args": [
+        "run", "--project", "C:\\path\\to\\HyMT2Sharp\\src\\HyMT2Sharp.McpServer",
+        "-c", "Release", "--",
+        "--model", "C:\\path\\to\\Hy-MT2-1.8B-Q4_K_M.gguf"
+      ]
+    }
+  }
+}
+```
+
+调试可用官方 Inspector：`npx @modelcontextprotocol/inspector dotnet run --project src/HyMT2Sharp.McpServer -- --model <path>`。
+
+后续计划（交互式翻译工作台 UI，MCP Apps 扩展）见 [docs/mcp-apps-plan.md](docs/mcp-apps-plan.md)。
+
 ## 作为库使用
 
 安装推理入口包（会传递引用 `Sdcb.HyMT2Sharp.Gguf` 与 `Sdcb.HyMT2Sharp.Kernels`）：
