@@ -1,6 +1,6 @@
 # HyMT2Sharp MCP Apps 支持方案
 
-> 状态：M1、M2 已实施（stdio + `translate` 工具 + MCP Apps 翻译工作台 UI，构建与协议冒烟通过）；M3 待做
+> 状态：M1–M3 全部已实施（stdio + `translate` 工具 + MCP Apps 翻译工作台 UI + streamable HTTP + 单文件发布，构建与协议冒烟通过）；M4 可选
 > 目标仓库：geffzhang/HyMT2Sharp（上游 sdcb/HyMT2Sharp）
 > 日期：2026-09-15
 
@@ -374,7 +374,7 @@ csproj 要点：
 |--------|------|------|------|
 | **M1 ✅ 已完成（2026-09-15）** | `HyMT2Sharp.McpServer` 项目 + stdio 传输 + `translate` 工具 + `TranslationService` | Release 构建 0 警告 0 错误；stdio 冒烟：`initialize` 握手、`tools/list`（38 语言字符串枚举 schema）、`tools/call` 错误路径返回结构化 `isError` 响应且错误信息透传；语言枚举经 `JsonStringEnumConverter` 以字符串暴露，可直接被后续 MCP Apps UI 的 inputSchema 消费 | 0.5–1 天 |
 | **M2 ✅ 已完成（2026-09-15）** | MCP Apps：`translate_ui` + 两个 resources + `ui/translate.html` 工作台 | 协议冒烟全通：`initialize` 响应含 `extensions:{"io.modelcontextprotocol/ui":{}}`；`translate_ui`/`translate` 均带 `_meta.ui.resourceUri`；`resources/list` 返回 `text/html;profile=mcp-app` 资源（含 `prefersBorder`）；`resources/read` 正常返回 HTML 与分组语言 JSON。宿主内真实渲染需 MCP Apps 宿主，按渐进增强设计不阻塞交付 | 1 天 |
-| M3 | `--http` 模式、README/文档、单文件发布脚本 | Inspector HTTP 模式连通；配置文档可复制即用 | 0.5 天 |
+| **M3 ✅ 已完成（2026-09-15）** | `--http` 模式、README/文档、单文件发布脚本 | HTTP 冒烟全通：`initialize`（SSE 响应、声明 `io.modelcontextprotocol/ui` 扩展能力）、`tools/list`、`resources/read`、真实翻译（en→zh，57.6 tok/s）；发布脚本产出单文件 exe + `ui/translate.html`，发布版 stdio 冒烟通过 | 0.5 天 |
 | M4（可选增强） | 进度通知（`IProgress<ProgressNotificationValue>` 上报 decode 进度）、长文分块翻译、glossary/style prompt 透传 | 按需 | 另议 |
 
 M1 实施补充说明：
@@ -393,6 +393,15 @@ M2 实施补充说明：
 - UI 语言列表加载策略：优先 `tools/list` → `translate` 的 `inputSchema.properties.targetLanguage.enum`（枚举经 `JsonStringEnumConverter` 以字符串暴露），显示名兜底走 `resources/read data://hymt2/languages`（核心/扩展/方言三组 optgroup）。
 - `ui/translate.html` 为零外部依赖单文件（原生 JS + `postMessage` JSON-RPC 桥），暗亮色跟随 `prefers-color-scheme`，`textContent` 渲染译文防注入。
 - stdio 模式下 UI 同样可交互（桥经宿主转发，UI 不直连任何 HTTP）。
+
+M3 实施补充说明：
+
+- `ModelContextProtocol.AspNetCore 2.2.0` 引入（`FrameworkReference Microsoft.AspNetCore.App`）；`Microsoft.Extensions.Hosting` 显式引用移除（经 AspNetCore 包传递引入，显式引用触发 NU1510）。
+- `MapMcp()` **必须显式传路由 pattern**：`app.MapMcp("/mcp")`。无参调用编译通过但端点未注册（POST /mcp 返回 404）——这是本里程碑发现的 SDK 行为坑。
+- HTTP 模式仅绑定 `127.0.0.1`（本地使用定位；对外暴露需自行加反向代理与鉴权）。stdio 与 http 双模式共用同一套 tools/resources/Apps 注册，`Program.cs` 按 `--http` 分支。
+- 响应为 SSE 流（`event: message` + `data:` 行），符合 streamable HTTP 规范；本实现无显式会话（未返回 `Mcp-Session-Id`），SDK 按无状态处理可用。
+- `scripts/publish-mcpserver.ps1`：`PublishSingleFile` + `IncludeNativeLibrariesForSelfExtract`，`ui/translate.html` 以 Content 跟随产物（资源按 `AppContext.BaseDirectory` 解析，单文件下指向 exe 旁目录）；框架依赖与 `-SelfContained`（需 `-RID`）两种模式。
+- `.gitignore` 增加 `publish/`。
 
 依赖顺序：M1 → M2 → M3 严格串行；M4 独立。
 

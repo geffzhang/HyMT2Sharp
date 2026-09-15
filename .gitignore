@@ -5,6 +5,7 @@
 [Rr]elease/
 [Rr]eleases/
 artifacts/
+publish/
 [Ll]og/
 [Ll]ogs/
 *.binlog

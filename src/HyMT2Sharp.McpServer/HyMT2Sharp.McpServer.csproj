@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="ModelContextProtocol" Version="2.2.0" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
     <PackageReference Include="ModelContextProtocol.Extensions.Apps" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
     <ProjectReference Include="..\HyMT2Sharp.Model\HyMT2Sharp.Model.csproj" />
     <ProjectReference Include="..\HyMT2Sharp.Gguf\HyMT2Sharp.Gguf.csproj" />
   </ItemGroup>

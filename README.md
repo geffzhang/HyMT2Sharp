@@ -42,10 +42,13 @@ curl http://127.0.0.1:8080/v1/chat/completions -H "Content-Type: application/jso
 
 ### MCP Server
 
-`HyMT2Sharp.McpServer` 把本地翻译能力暴露为标准 MCP（Model Context Protocol）工具，任何 MCP 宿主（Claude Desktop、VS Code Copilot、WorkBuddy 等）均可直接调用——完全离线，无需 API key。基于官方 [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)（stdio 传输）：
+`HyMT2Sharp.McpServer` 把本地翻译能力暴露为标准 MCP（Model Context Protocol）工具，任何 MCP 宿主（Claude Desktop、VS Code Copilot、WorkBuddy 等）均可直接调用——完全离线，无需 API key。基于官方 [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)，默认 stdio 传输，加 `--http` 切换为 streamable HTTP：
 
 ```powershell
 dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf"
+
+# streamable HTTP 模式（端点 http://127.0.0.1:17890/mcp）
+dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --http --port 17890 --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf"
 ```
 
 | 参数 | 默认 | 说明 |
@@ -53,6 +56,8 @@ dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\
 | `--model` / `-m` | `HYMT2_MODEL` 环境变量 | GGUF 路径 |
 | `--threads` / `-t` | 0（自动绑物理 P-core） | 推理线程数 |
 | `--max-tokens` | 512 | 单次翻译生成上限 |
+| `--http` | 关（stdio） | 启用 streamable HTTP 传输 |
+| `--port` / `-p` | 17890 | HTTP 模式监听端口（仅绑定 127.0.0.1） |
 
 提供 `translate` 工具：参数为 `text`、`targetLanguage`（38 种语言枚举，如 `zh` / `en` / `ja`），返回译文文本及 `structuredContent`（token 用量与耗时统计）。模型在首次调用时才加载（秒级），之后常驻内存；并发调用在单实例上串行排队。
 
@@ -77,7 +82,14 @@ dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\
 
 调试可用官方 Inspector：`npx @modelcontextprotocol/inspector dotnet run --project src/HyMT2Sharp.McpServer -- --model <path>`。
 
-后续计划（`--http` 模式、单文件发布等）见 [docs/mcp-apps-plan.md](docs/mcp-apps-plan.md)。
+**单文件发布**：`scripts/publish-mcpserver.ps1` 产出 `publish/mcp-server/` 下的单文件 exe（`ui/translate.html` 随附在旁边），加 `-RID win-x64 -SelfContained` 可脱离 .NET 运行时分发：
+
+```powershell
+./scripts/publish-mcpserver.ps1                        # 依赖 .NET 10 运行时
+./scripts/publish-mcpserver.ps1 -RID win-x64 -SelfContained
+```
+
+MCP Apps 方案与后续计划见 [docs/mcp-apps-plan.md](docs/mcp-apps-plan.md)。
 
 ## 作为库使用
 
