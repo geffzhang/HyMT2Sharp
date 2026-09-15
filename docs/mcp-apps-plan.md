@@ -1,6 +1,6 @@
 # HyMT2Sharp MCP Apps 支持方案
 
-> 状态：M1 已实施（stdio + `translate` 工具，构建与协议冒烟通过）；M2/M3 待做
+> 状态：M1、M2 已实施（stdio + `translate` 工具 + MCP Apps 翻译工作台 UI，构建与协议冒烟通过）；M3 待做
 > 目标仓库：geffzhang/HyMT2Sharp（上游 sdcb/HyMT2Sharp）
 > 日期：2026-09-15
 
@@ -373,7 +373,7 @@ csproj 要点：
 | 里程碑 | 内容 | 验收 | 预估 |
 |--------|------|------|------|
 | **M1 ✅ 已完成（2026-09-15）** | `HyMT2Sharp.McpServer` 项目 + stdio 传输 + `translate` 工具 + `TranslationService` | Release 构建 0 警告 0 错误；stdio 冒烟：`initialize` 握手、`tools/list`（38 语言字符串枚举 schema）、`tools/call` 错误路径返回结构化 `isError` 响应且错误信息透传；语言枚举经 `JsonStringEnumConverter` 以字符串暴露，可直接被后续 MCP Apps UI 的 inputSchema 消费 | 0.5–1 天 |
-| M2 | MCP Apps：`translate_ui` + 两个 resources + `ui/translate.html` 工作台 | 支持 Apps 的宿主中渲染 UI，语言下拉、翻译、tool-input 预填全通 | 1 天 |
+| **M2 ✅ 已完成（2026-09-15）** | MCP Apps：`translate_ui` + 两个 resources + `ui/translate.html` 工作台 | 协议冒烟全通：`initialize` 响应含 `extensions:{"io.modelcontextprotocol/ui":{}}`；`translate_ui`/`translate` 均带 `_meta.ui.resourceUri`；`resources/list` 返回 `text/html;profile=mcp-app` 资源（含 `prefersBorder`）；`resources/read` 正常返回 HTML 与分组语言 JSON。宿主内真实渲染需 MCP Apps 宿主，按渐进增强设计不阻塞交付 | 1 天 |
 | M3 | `--http` 模式、README/文档、单文件发布脚本 | Inspector HTTP 模式连通；配置文档可复制即用 | 0.5 天 |
 | M4（可选增强） | 进度通知（`IProgress<ProgressNotificationValue>` 上报 decode 进度）、长文分块翻译、glossary/style prompt 透传 | 按需 | 另议 |
 
@@ -385,6 +385,14 @@ M1 实施补充说明：
 - **实施中发现并修复**：翻译 prompt 必须经 `ChatTemplate.RenderHunyuanDense([new ChatMessage("user", prompt)])` 包装（BOS + user turn）。直接编码裸 prompt 会导致模型不输出 stop token、decode 撞满 maxTokens 且译文为空。
 - 可预期异常（参数/模型文件/未配置路径）统一转 `McpException`，错误信息完整透传给客户端；未处理异常会被 SDK 屏蔽为泛化消息。
 - 新增文件：`src/HyMT2Sharp.McpServer/{HyMT2Sharp.McpServer.csproj, Program.cs, TranslationService.cs, TranslationTools.cs, HyLanguage.cs}`，已加入 `HyMT2Sharp.slnx`。
+
+M2 实施补充说明：
+
+- `ModelContextProtocol.Extensions.Apps 2.2.0` 引入（`NoWarn MCPEXP003`）；实测 2.2.0 稳定版 API 与官方 `WeatherAppServer` 样例一致（`McpApps.HtmlMimeType`、`[McpAppUi]`、`[McpMeta]`、`WithMcpApps()`、`WithResources<T>()`）。
+- `translate` 与 `translate_ui` 两个工具均挂 `[McpAppUi(ResourceUri = "ui://hymt2/translate")]`：前者让 LLM 直接翻译时宿主可把 `structuredContent` 推送到已打开的 UI；后者支持预填参数（`text` / `targetLanguage`，经 `ui/notifications/tool-input` 到达 UI）。
+- UI 语言列表加载策略：优先 `tools/list` → `translate` 的 `inputSchema.properties.targetLanguage.enum`（枚举经 `JsonStringEnumConverter` 以字符串暴露），显示名兜底走 `resources/read data://hymt2/languages`（核心/扩展/方言三组 optgroup）。
+- `ui/translate.html` 为零外部依赖单文件（原生 JS + `postMessage` JSON-RPC 桥），暗亮色跟随 `prefers-color-scheme`，`textContent` 渲染译文防注入。
+- stdio 模式下 UI 同样可交互（桥经宿主转发，UI 不直连任何 HTTP）。
 
 依赖顺序：M1 → M2 → M3 严格串行；M4 独立。
 

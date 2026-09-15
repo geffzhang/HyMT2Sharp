@@ -56,6 +56,8 @@ dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\
 
 提供 `translate` 工具：参数为 `text`、`targetLanguage`（38 种语言枚举，如 `zh` / `en` / `ja`），返回译文文本及 `structuredContent`（token 用量与耗时统计）。模型在首次调用时才加载（秒级），之后常驻内存；并发调用在单实例上串行排队。
 
+另提供 `translate_ui` 工具（**MCP Apps 扩展**，实验性）：在支持 MCP Apps 的宿主中打开交互式翻译工作台 UI——双语对照窗格、语言下拉（常用/扩展/方言分组）、耗时与 tok/s 统计，可传 `text` / `targetLanguage` 预填。UI 经 `postMessage` JSON-RPC 桥由宿主转发调用，不直连网络，同样完全离线。不支持 Apps 的宿主可忽略此工具，`translate` 不受影响。
+
 在 MCP 宿主中注册（以 `mcp.json` 为例）：
 
 ```json
@@ -75,7 +77,7 @@ dotnet run --project src/HyMT2Sharp.McpServer -c Release -- --model "D:\_\model\
 
 调试可用官方 Inspector：`npx @modelcontextprotocol/inspector dotnet run --project src/HyMT2Sharp.McpServer -- --model <path>`。
 
-后续计划（交互式翻译工作台 UI，MCP Apps 扩展）见 [docs/mcp-apps-plan.md](docs/mcp-apps-plan.md)。
+后续计划（`--http` 模式、单文件发布等）见 [docs/mcp-apps-plan.md](docs/mcp-apps-plan.md)。
 
 ## 作为库使用
 

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ModelContextProtocol.Extensions.Apps;
 using Sdcb.HyMT2Sharp.McpServer;
 
 // MCP stdio: stdout carries JSON-RPC only; all diagnostics go to stderr.
@@ -33,7 +34,9 @@ builder.Services
         };
     })
     .WithStdioServerTransport()
-    .WithTools<TranslationTools>();
+    .WithTools<TranslationTools>()
+    .WithResources<TranslationResources>()
+    .WithMcpApps();
 
 await builder.Build().RunAsync();
 

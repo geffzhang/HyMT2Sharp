@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ModelContextProtocol;
+using ModelContextProtocol.Extensions.Apps;
 using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
 
@@ -22,6 +23,7 @@ public sealed class TranslationTools
     };
 
     [McpServerTool(Name = "translate")]
+    [McpAppUi(ResourceUri = "ui://hymt2/translate")]
     [Description(
         "Translate text with the local Hy-MT2 model — fully offline, no network or API key needed. " +
         "Supports 33+ languages (Chinese, English, Japanese, Korean, and more, incl. Traditional Chinese). " +
@@ -72,4 +74,14 @@ public sealed class TranslationTools
             }, StructuredJson),
         };
     }
+
+    [McpServerTool(Name = "translate_ui")]
+    [McpAppUi(ResourceUri = "ui://hymt2/translate")]
+    [Description(
+        "Open the interactive translation workbench UI (rendered by MCP Apps-capable hosts). " +
+        "Optionally pass text and/or targetLanguage to prefill the workbench.")]
+    public static string TranslateUi(
+        [Description("Optional text to prefill into the workbench")] string? text = null,
+        [Description("Optional target language to preselect")] HyLanguage? targetLanguage = null)
+        => "Translation workbench opened.";
 }
