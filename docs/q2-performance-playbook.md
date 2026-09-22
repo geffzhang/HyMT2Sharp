@@ -116,7 +116,7 @@ README 中的数字应被理解为实测记录，而不是硅片的固定上限�
 
 不能把面向另一种核心拓扑的线程亲和性假设直接搬到 5800X。
 
-`CpuThreadPool.PreferPCoreCount()` 读取操作系统拓扑，只统计最高性能那一档的物理核（Windows 上是 EfficiencyClass 0，不含 SMT 兄弟线程）。5800X 没有 E-core，因此自动值是 8。
+`CpuThreadPool.PreferPCoreCount()` 读取操作系统拓扑，只统计最高性能那一档的物理核（不含 SMT 兄弟线程和 E-core）。5800X 没有 E-core，因此自动值是 8。
 
 因此在 5800X 上通常应该用显式 `--threads 8` 做可比测试。
 

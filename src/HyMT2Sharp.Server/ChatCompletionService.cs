@@ -22,7 +22,7 @@ public sealed class ChatCompletionService : IDisposable
 
         Console.WriteLine($"loading {ModelPath}");
         _model = new HunyuanDenseModel(ModelPath, threads);
-        Console.WriteLine($"ready  threads={_model.ThreadCount}{(threads <= 0 ? " (physical P-cores)" : "")}  arch={_model.Config.Architecture} layers={_model.Config.NumLayers} hidden={_model.Config.HiddenSize} heads={_model.Config.NumHeads}/{_model.Config.NumKvHeads} vocab={_model.Config.VocabSize}");
+        Console.WriteLine($"ready  threads={_model.ThreadCount}{(threads <= 0 ? $" ({_model.ThreadAutoHint})" : "")}  arch={_model.Config.Architecture} layers={_model.Config.NumLayers} hidden={_model.Config.HiddenSize} heads={_model.Config.NumHeads}/{_model.Config.NumKvHeads} vocab={_model.Config.VocabSize}");
     }
 
     public string ModelId { get; }

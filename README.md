@@ -24,7 +24,7 @@
 dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf"
 ```
 
-不传 `--threads` 时按 CPU 拓扑自动绑定物理 P-core（5800X 上为 8 线程，绑物理核、不占 SMT）。加 `--prompt` 跑单轮后退出；省略则进入多轮对话。
+不传 `--threads` 时按 CPU 拓扑自动绑定物理 P-core（不含 SMT 和 E-core；大小核例如 8P+8E 为 8，5800X 为 8）。加 `--prompt` 跑单轮后退出；省略则进入多轮对话。
 
 ### HTTP 服务
 
@@ -151,7 +151,7 @@ static int ArgMax(float[] logits)
 }
 ```
 
-`threads = 0`（默认）自动绑物理 P-core。`HunyuanDenseModel` 不是线程安全的，并发请求请串行化或各用独立实例。
+`threads = 0`（默认）自动绑物理 P-core，不占 SMT 和 E-core。`HunyuanDenseModel` 不是线程安全的，并发请求请串行化或各用独立实例。
 
 ## NuGet 包
 

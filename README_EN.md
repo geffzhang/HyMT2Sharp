@@ -24,7 +24,7 @@ Run the CLI from this repo (point `--model` at your GGUF):
 dotnet run --project src/HyMT2Sharp.Cli -c Release -- --model "D:\_\model\Hy-MT2-1.8B-Q4_K_M.gguf"
 ```
 
-Omit `--threads` to bind physical P-cores from the CPU topology (8 threads on a 5800X; physical cores only, no SMT). Pass `--prompt` for a single turn; omit it for a multi-turn console chat.
+Omit `--threads` to bind physical P-cores from the CPU topology (8 threads on an 8P+8E hybrid or a 5800X; P-cores only, no SMT). Pass `--prompt` for a single turn; omit it for a multi-turn console chat.
 
 ### HTTP server
 
@@ -100,7 +100,7 @@ static int ArgMax(float[] logits)
 }
 ```
 
-`threads = 0` (the default) binds physical P-cores. `HunyuanDenseModel` is not thread-safe; serialize requests or use one instance per caller.
+`threads = 0` (the default) binds physical P-cores and skips SMT and E-cores. `HunyuanDenseModel` is not thread-safe; serialize requests or use one instance per caller.
 
 ## NuGet packages
 
