@@ -214,6 +214,12 @@ public sealed class Q4KKernelTests
                 float avx = VecDotQ4K.DotAvx2((BlockQ4K*)packed.Pointer, y, nIn);
                 Assert.True(MathF.Abs(avx - scalar) < 1e-3f * nIn, $"avx {avx} vs scalar {scalar}");
             }
+
+            if (System.Runtime.Intrinsics.Arm.Dp.IsSupported)
+            {
+                float advSimd = VecDotQ4K.DotAdvSimd((BlockQ4K*)packed.Pointer, y, nIn);
+                Assert.True(MathF.Abs(advSimd - scalar) < 1e-3f * nIn, $"advsimd {advSimd} vs scalar {scalar}");
+            }
         }
     }
 

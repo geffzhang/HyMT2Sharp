@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
 
 namespace Sdcb.HyMT2Sharp.Kernels;
@@ -10,6 +11,8 @@ public static unsafe class VecDotQ4K
     {
         if (Avx2.IsSupported)
             return DotAvx2(x, y, n);
+        if (Dp.IsSupported)
+            return DotAdvSimd(x, y, n);
         return DotScalar(x, y, n);
     }
 
@@ -62,6 +65,59 @@ public static unsafe class VecDotQ4K
         }
 
         return sumf;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    public static float DotAdvSimd(BlockQ4K* x, BlockQ8K* y, int n)
+    {
+        int nb = n / Qk.SuperBlock;
+        uint* utmp = stackalloc uint[4];
+        float sumf = 0;
+        Vector128<byte> m4 = Vector128.Create((byte)0x0F);
+
+        for (int i = 0; i < nb; i++)
+        {
+            float d = y[i].D * HalfBits.ToSingle(x[i].D);
+            float dmin = -y[i].D * HalfBits.ToSingle(x[i].Dmin);
+            Q4K.UnpackScales(x[i].Scales, utmp);
+
+            byte* scales = (byte*)utmp;
+            byte* mins = (byte*)(utmp + 2);
+            int sumi = 0;
+            for (int j = 0; j < Qk.SuperBlock / 16; j++)
+                sumi += y[i].Bsums[j] * mins[j / 2];
+
+            byte* q4 = x[i].Qs;
+            sbyte* q8 = y[i].Qs;
+            int acc = 0;
+            for (int j = 0; j < Qk.SuperBlock / 64; j++)
+            {
+                Vector128<byte> packed = AdvSimd.LoadVector128(q4);
+                q4 += 16;
+                acc += scales[2 * j] * Dot16(AdvSimd.And(packed, m4), q8);
+                q8 += 16;
+                acc += scales[2 * j] * Dot16(AdvSimd.And(packed, m4), q8);
+                q8 += 16;
+
+                packed = AdvSimd.LoadVector128(q4);
+                q4 += 16;
+                acc += scales[2 * j + 1] * Dot16(AdvSimd.ShiftRightLogical(packed, 4), q8);
+                q8 += 16;
+                acc += scales[2 * j + 1] * Dot16(AdvSimd.ShiftRightLogical(packed, 4), q8);
+                q8 += 16;
+            }
+
+            sumf += d * acc + dmin * sumi;
+        }
+
+        return sumf;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int Dot16(Vector128<byte> weights, sbyte* activations)
+    {
+        Vector128<int> products = Dp.DotProduct(Vector128<int>.Zero, weights.AsSByte(), AdvSimd.LoadVector128(activations));
+        return products.GetElement(0) + products.GetElement(1) + products.GetElement(2) + products.GetElement(3);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
